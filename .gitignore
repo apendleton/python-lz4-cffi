@@ -1,0 +1,5 @@
+*.gch
+*.dylib
+*.so
+*.pyc
+*_test

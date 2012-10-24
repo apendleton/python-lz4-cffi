@@ -1,0 +1,5 @@
+This is a port of Steeve Morin's python-lz4 (https://github.com/steeve/python-
+lz4) to CFFI so as to be usable on pypy.  For the moment, it requires CFFI >=
+0.3 (and, consequently, pypy trunk).  The setup.py probably doesn't work right
+yet, because I haven't figured out what the best way is to get pip to install
+compiled binaries that aren't regular Python extensions.  Sorry about that.
