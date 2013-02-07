@@ -33,5 +33,7 @@ setup(
         'Environment :: Web Environment',
     ],
     install_requires=["cffi"],
+    include_package_data=True,
+    package_data={'': ['*.c','*.h']},
     ext_modules=[ext]
 )
