@@ -13,7 +13,7 @@ f.close()
 
 setup(
     name='lz4',
-    version=0.1,
+    version=0.2,
     description='A port of the python-lz4 package from the CPython API to CFFI.',
     long_description=readme,
     author='Andrew Pendleton',
