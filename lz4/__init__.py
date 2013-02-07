@@ -8,7 +8,14 @@ ffi.cdef("int LZ4_compress   (const char* source, char* dest, int isize);")
 ffi.cdef("int LZ4_uncompress (const char* source, char* dest, int osize);")
 ffi.cdef("int LZ4_compressHC (const char* source, char* dest, int isize);")
 ffi.cdef("int LZ4_uncompress_offset (const char* source, char* dest, int osize, int offset);")
-liblz4 = ffi.dlopen(os.path.join(os.path.dirname(os.path.abspath(__file__)), "liblz4.%s" % libtype))
+
+candidate_names = [os.path.join(os.path.dirname(os.path.abspath(__file__)), "%s.%s" % (name, libtype)) for name in
+    ['liblz4', 'liblz4.pypy-20']
+]
+existing_names = [name for name in candidate_names if os.path.exists(name)]
+assert len(existing_names) >= 1, "Can't find compiled library."
+
+liblz4 = ffi.dlopen(existing_names[0])
 
 def LZ4_compressBound(isize):
     return isize + (isize / 255) + 16
