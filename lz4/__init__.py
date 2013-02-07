@@ -1,6 +1,6 @@
 import cffi, platform, os
 
-libtype = "dylib" if platform.uname()[0] == "Darwin" else "so"
+libtype = "so"
 
 ffi = cffi.FFI()
 

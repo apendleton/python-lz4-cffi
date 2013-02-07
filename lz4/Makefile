@@ -1,11 +1,6 @@
 UNAME := $(shell uname)
 
-ifeq ($(UNAME), Linux)
 LIBTYPE=so
-endif
-ifeq ($(UNAME), Darwin)
-LIBTYPE=dylib
-endif
 
 all: clean build
 

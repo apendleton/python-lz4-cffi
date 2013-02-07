@@ -1,13 +1,11 @@
-from setuptools import setup, find_packages, distutils
+from setuptools import setup, find_packages, distutils, Extension
 from setuptools.command.build_py import build_py as BaseBuild
 import os, subprocess
 
-class LZ4Build(BaseBuild):
-    def run(self):
-        lib_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'lz4')
-        if subprocess.Popen("cd %s && make" % lib_path, shell=True).wait() != 0:
-            raise distutils.errors.CompileError()
-        BaseBuild.run(self)
+ext = Extension('lz4/liblz4',
+        sources = ['lz4/lz4.c', 'lz4/lz4hc.c', 'lz4/lz4_offset_hack.c'],
+        extra_compile_args = ["-O3", "-fPIC", "-std=c99", "-Wall", "-W", "-Wundef", "-Wno-implicit-function-declaration"],
+    )
 
 f = open(os.path.join(os.path.dirname(__file__), 'README'))
 readme = f.read()
@@ -35,8 +33,5 @@ setup(
         'Environment :: Web Environment',
     ],
     install_requires=["cffi"],
-    include_package_data=True,
-    package_data={'': ['*.so','*.dylib']},
-
-    cmdclass={'build_py': LZ4Build}
+    ext_modules=[ext]
 )
